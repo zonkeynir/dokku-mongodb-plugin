@@ -107,7 +107,7 @@ else
   db_image="jeffutter/mongodb:2.4"
 fi
 
-admin_pass=$(cat "$DOKKU_ROOT/.mongodb/admin_pw")
+admin_pass="mongo"
 mongodb_database="${DATABASE//./_}-production"
 
 id=$(docker ps | grep "$db_image" |  awk '{print $1}')
