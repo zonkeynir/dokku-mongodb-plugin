@@ -85,7 +85,7 @@ if [[ ! -d "$DOKKU_ROOT/.mongodb" ]]; then
   consolelog "-- Run Setup"
   mkdir -p "$DOKKU_ROOT/.mongodb/data"
 
-  admin_pass=$(openssl rand -base64 32|base64)
+  admin_pass="mongo"
   echo $admin_pass > "$DOKKU_ROOT/.mongodb/admin_pw"
 
   chown -R dokku: "$DOKKU_ROOT/.mongodb"
