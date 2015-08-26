@@ -128,11 +128,9 @@ case "$1" in
     check_container
     check_app
 
-    mongodb_password=$(openssl rand -base64 32|base64)
 
     
 
-    mongodb_username=$APP
     
     get_mongodb_auth_schema_version
     ;;
@@ -177,11 +175,6 @@ Please check whether you have sufficient write privileges in $PWD"
   mongodb:link)
     if [[ -d "$DOKKU_ROOT/$APP" ]]; then
       mongodb_internal_port=27017
-      if [[ -z "$3"  ]]; then
-        mongodb_password=$(cat "$DOKKU_ROOT/.mongodb/pass_${APP}")
-      else
-        mongodb_password=$(cat "$DOKKU_ROOT/.mongodb/pass_${APP}_${DATABASE}")
-      fi
 
       mongodb_username=$APP
 
@@ -246,7 +239,7 @@ $output"
     ;;
   mongodb:stop)
     check_container
-    mongo $mongodb_public_ip:$mongodb_port --eval "db.shutdownServer()"
+    mongo $mongodb_public_ip:$mongodb_port --eval "use admin; db.shutdownServer()"
     ;;
   mongodb:status)
     if [[ "$id" != "" ]]; then
